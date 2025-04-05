@@ -37,6 +37,7 @@ define( 'DB_CHARSET', 'utf8mb4' );
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
+
 /**#@+
  * Authentication unique keys and salts.
  *
@@ -89,7 +90,7 @@ define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
-
+define('FS_METHOD', 'direct');
 
 /* That's all, stop editing! Happy publishing. */
 

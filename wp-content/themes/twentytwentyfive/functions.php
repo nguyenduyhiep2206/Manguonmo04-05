@@ -156,3 +156,50 @@ if ( ! function_exists( 'twentytwentyfive_format_binding' ) ) :
 		}
 	}
 endif;
+function quadratic_solver_shortcode() {
+    ob_start();
+    ?>
+    <div style="text-align: center; max-width: 500px; margin: auto;">
+        <h2>Giải Phương Trình Bậc 2</h2>
+        <form id="quadratic-form">
+            <input type="number" id="a" placeholder="Nhập a" style="margin: 10px; padding: 10px; width: 30%;">
+            <input type="number" id="b" placeholder="Nhập b" style="margin: 10px; padding: 10px; width: 30%;">
+            <input type="number" id="c" placeholder="Nhập c" style="margin: 10px; padding: 10px; width: 30%;">
+            <br>
+            <button type="button" id="solve-button" style="background-color: orange; color: white; padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer;">
+                Giải Phương Trình
+            </button>
+        </form>
+        <h3>Kết quả</h3>
+        <p id="result"></p>
+    </div>
+    <script>
+        document.getElementById('solve-button').addEventListener('click', function() {
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+            const c = parseFloat(document.getElementById('c').value);
+            let result = '';
+            
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                result = 'Vui lòng nhập đầy đủ các giá trị!';
+            } else {
+                const delta = b * b - 4 * a * c;
+                if (delta < 0) {
+                    result = 'Phương trình vô nghiệm.';
+                } else if (delta === 0) {
+                    const x = -b / (2 * a);
+                    result = `Phương trình có nghiệm kép: x = ${x}`;
+                } else {
+                    const x1 = (-b + Math.sqrt(delta)) / (2 * a);
+                    const x2 = (-b - Math.sqrt(delta)) / (2 * a);
+                    result = `Phương trình có hai nghiệm phân biệt: x1 = ${x1}, x2 = ${x2}`;
+                }
+            }
+
+            document.getElementById('result').innerText = result;
+        });
+    </script>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('quadratic_solver', 'quadratic_solver_shortcode');
